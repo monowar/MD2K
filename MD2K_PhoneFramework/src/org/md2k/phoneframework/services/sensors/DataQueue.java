@@ -4,6 +4,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.md2k.phoneframework.logger.Log;
+import org.md2k.phoneframework.logger.NetworkLogger;
 import org.md2k.phoneframework.services.sensors.datatype.DataType;
 
 public class DataQueue extends Thread{
@@ -36,8 +37,8 @@ public void run()
 	{
 		while(keepAlive) 
 		{ 
-			dequeue(); 
-
+			dequeue();
+			
 		}
 	} 
 	catch (Exception e) 
@@ -48,7 +49,7 @@ public void run()
 public void enqueue(DataType b)
 {
 	try {
-		Log.d("DataQueue","enqueue: time="+b.getTimeStamp());
+//		Log.d("DataQueue","enqueue: time="+b.getTimeStamp());
 		queue.put(b);
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
@@ -61,10 +62,9 @@ public void dequeue()
 	DataType b = new DataType();
 	try
 	{		
+		b = queue.take();		
 		Log.d("DataQueue","Dequeue: time="+b.getTimeStamp());		
-		b = queue.take();
-//		logToTOSFile(b);
-		
+		NetworkLogger.getInstance().sendDataToNetwork(b);	
 	}
 	catch(Exception e)
 	{

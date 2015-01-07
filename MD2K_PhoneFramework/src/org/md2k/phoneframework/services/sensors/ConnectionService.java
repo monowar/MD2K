@@ -1,7 +1,7 @@
 package org.md2k.phoneframework.services.sensors;
 
 import org.md2k.phoneframework.logger.Log;
-import org.md2k.phoneframework.services.sensors.external.AutoSenseChest;
+import org.md2k.phoneframework.services.sensors.autosense.AutoSenseChest;
 
 import android.app.Service;
 import android.content.Intent;
